@@ -29,6 +29,7 @@ import com.example.pmobiles.R;
 import com.android.volley.toolbox.Volley;
 import com.android.volley.toolbox.StringRequest;
 
+import com.example.pmobiles.ScrollingActivity;
 import com.example.pmobiles.ui.login.LoginViewModel;
 import com.example.pmobiles.ui.login.LoginViewModelFactory;
 
@@ -126,7 +127,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         queue = Volley.newRequestQueue(this);
-        final TextView t = (TextView) findViewById(R.id.text_view);
         queue.start();
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,21 +140,15 @@ public class LoginActivity extends AppCompatActivity {
                                 //loadingProgressBar.setVisibility(View.INVISIBLE);
                                 //Toast.makeText(getApplicationContext(), response , Toast.LENGTH_SHORT);
                                 //t.setText(response);
-
                                 Intent intent = new Intent(getApplicationContext(), ScrollingActivity.class);
                                 intent.putExtra(EXTRA_MESSAGE, response);
                                 startActivity(intent);
-
-
-
-
                             }
                         },
                         new Response.ErrorListener(){
                             @Override
                             public void onErrorResponse(VolleyError error){
                                 //Toast.makeText(getApplicationContext(), "Error al conectar" , Toast.LENGTH_SHORT);
-                                t.setText("Error al conectar");
                             }
                         }
                         );

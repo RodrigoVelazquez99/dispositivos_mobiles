@@ -1,5 +1,6 @@
 package com.example.pmobiles;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.pmobiles.ui.login.LoginActivity;
@@ -8,8 +9,10 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.NestedScrollView;
 
 import android.view.View;
+import android.widget.TextView;
 
 public class ScrollingActivity extends AppCompatActivity {
 
@@ -29,7 +32,8 @@ public class ScrollingActivity extends AppCompatActivity {
 
             }
         });
-        TexView t = findViewById(R.id.tv1);
+
+        TextView t =  findViewById(R.id.tv1);
         Intent intent  = getIntent();
         String message = intent.getStringExtra(LoginActivity.EXTRA_MESSAGE);
         t.setText(message);
