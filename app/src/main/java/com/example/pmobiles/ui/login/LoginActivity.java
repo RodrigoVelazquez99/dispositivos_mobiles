@@ -10,7 +10,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -34,6 +34,7 @@ import com.example.pmobiles.ui.login.LoginViewModelFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
+    public static final String EXTRA_MESSAGE = "com.example.pmobiles";
     private LoginViewModel loginViewModel;
 
     RequestQueue queue;
@@ -138,7 +139,15 @@ public class LoginActivity extends AppCompatActivity {
                             public void onResponse(String response){
                                 //loadingProgressBar.setVisibility(View.INVISIBLE);
                                 //Toast.makeText(getApplicationContext(), response , Toast.LENGTH_SHORT);
-                                t.setText(response);
+                                //t.setText(response);
+
+                                Intent intent = new Intent(getApplicationContext(), ScrollingActivity.class);
+                                intent.putExtra(EXTRA_MESSAGE, response);
+                                startActivity(intent);
+
+
+
+
                             }
                         },
                         new Response.ErrorListener(){
