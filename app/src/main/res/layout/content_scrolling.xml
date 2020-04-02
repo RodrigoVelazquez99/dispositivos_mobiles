@@ -22,18 +22,6 @@
             android:clickable="false">
         </ListView>
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dip"
-            android:textSize="16dip"
-            android:clickable="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:textIsSelectable="false"
-            />
-
     </RelativeLayout>
 
 </androidx.core.widget.NestedScrollView>

@@ -23,6 +23,7 @@ import java.util.Arrays;
 
 public class ScrollingActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,12 +40,14 @@ public class ScrollingActivity extends AppCompatActivity {
 
             }
         });
+
         Intent intent  = getIntent();
         String message = intent.getStringExtra(LoginActivity.EXTRA_MESSAGE);
-        int duration = Toast.LENGTH_SHORT;
 
+        int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(this, message, duration);
         toast.show();
+
         String[] arr = message.split(" ");
         arr = Arrays.copyOfRange(arr, 1, arr.length);
         final ArrayList<String> links = new ArrayList<>(Arrays.asList(arr));
@@ -53,20 +56,19 @@ public class ScrollingActivity extends AppCompatActivity {
         links.add("link9");
         links.add("link10");
         links.add("link11");
-        ListView listView = (ListView) findViewById(R.id.list_view);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.content_scrolling, R.id.textView, links);
+        final ListView listView = (ListView) findViewById(R.id.list_view);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.list_item, links);
         listView.setAdapter(adapter);
         listView.setNestedScrollingEnabled(true);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener () {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                String elem = (String) adapterView.getItemAtPosition(position);
-                Toast t = Toast.makeText(getApplicationContext(), "FUNCIONA" , Toast.LENGTH_SHORT);
+                String elem = (String) listView.getItemAtPosition(position);
+                Toast t = Toast.makeText(getApplicationContext(), elem , Toast.LENGTH_SHORT);
                 t.show();
             }
         });
-
 
     }
 }

@@ -131,15 +131,11 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //loadingProgressBar.setVisibility(View.VISIBLE);
                 url += "email=" + usernameEditText.getText().toString() + "&password=" + passwordEditText.getText().toString();
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                         new Response.Listener<String>(){
                             @Override
                             public void onResponse(String response){
-                                //loadingProgressBar.setVisibility(View.INVISIBLE);
-                                //Toast.makeText(getApplicationContext(), response , Toast.LENGTH_SHORT);
-                                //t.setText(response);
                                 if (!response.equals("false")) {
                                     Intent intent = new Intent(getApplicationContext(), ScrollingActivity.class);
                                     intent.putExtra(EXTRA_MESSAGE, response);
@@ -155,12 +151,10 @@ public class LoginActivity extends AppCompatActivity {
                         new Response.ErrorListener(){
                             @Override
                             public void onErrorResponse(VolleyError error){
-                                //Toast.makeText(getApplicationContext(), "Error al conectar" , Toast.LENGTH_SHORT);
+                                Toast.makeText(getApplicationContext(), "Error al conectar" , Toast.LENGTH_SHORT).show();
                             }
                         }
                         );
-                //loginViewModel.login(usernameEditText.getText().toString(),
-                //        passwordEditText.getText().toString());
                 queue.add(stringRequest);
             }
         });
