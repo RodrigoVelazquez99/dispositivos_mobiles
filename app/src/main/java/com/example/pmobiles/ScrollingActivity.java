@@ -12,7 +12,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollView;
 
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ScrollingActivity extends AppCompatActivity {
 
@@ -32,11 +39,34 @@ public class ScrollingActivity extends AppCompatActivity {
 
             }
         });
-
-        TextView t =  findViewById(R.id.tv1);
         Intent intent  = getIntent();
         String message = intent.getStringExtra(LoginActivity.EXTRA_MESSAGE);
-        t.setText(message);
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(this, message, duration);
+        toast.show();
+        String[] arr = message.split(" ");
+        arr = Arrays.copyOfRange(arr, 1, arr.length);
+        final ArrayList<String> links = new ArrayList<>(Arrays.asList(arr));
+        links.add("link7");
+        links.add("link8");
+        links.add("link9");
+        links.add("link10");
+        links.add("link11");
+        ListView listView = (ListView) findViewById(R.id.list_view);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.content_scrolling, R.id.textView, links);
+        listView.setAdapter(adapter);
+        listView.setNestedScrollingEnabled(true);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener () {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                String elem = (String) adapterView.getItemAtPosition(position);
+                Toast t = Toast.makeText(getApplicationContext(), "FUNCIONA" , Toast.LENGTH_SHORT);
+                t.show();
+            }
+        });
+
 
     }
 }

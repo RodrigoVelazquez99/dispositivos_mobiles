@@ -140,9 +140,16 @@ public class LoginActivity extends AppCompatActivity {
                                 //loadingProgressBar.setVisibility(View.INVISIBLE);
                                 //Toast.makeText(getApplicationContext(), response , Toast.LENGTH_SHORT);
                                 //t.setText(response);
-                                Intent intent = new Intent(getApplicationContext(), ScrollingActivity.class);
-                                intent.putExtra(EXTRA_MESSAGE, response);
-                                startActivity(intent);
+                                if (!response.equals("false")) {
+                                    Intent intent = new Intent(getApplicationContext(), ScrollingActivity.class);
+                                    intent.putExtra(EXTRA_MESSAGE, response);
+                                    startActivity(intent);
+                                } else {
+                                    String error = "Contraseña o email incorrectos";
+                                    int d =Toast.LENGTH_SHORT;
+                                    Toast toast = Toast.makeText(getApplicationContext(), error, d);
+                                    toast.show();
+                                }
                             }
                         },
                         new Response.ErrorListener(){
