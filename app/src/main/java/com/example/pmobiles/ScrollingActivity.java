@@ -1,6 +1,9 @@
 package com.example.pmobiles;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.example.pmobiles.ui.login.LoginActivity;
@@ -20,6 +23,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ScrollingActivity extends AppCompatActivity {
 
@@ -51,11 +55,6 @@ public class ScrollingActivity extends AppCompatActivity {
         String[] arr = message.split(" ");
         arr = Arrays.copyOfRange(arr, 1, arr.length);
         final ArrayList<String> links = new ArrayList<>(Arrays.asList(arr));
-        links.add("link7");
-        links.add("link8");
-        links.add("link9");
-        links.add("link10");
-        links.add("link11");
         final ListView listView = (ListView) findViewById(R.id.list_view);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.list_item, links);
         listView.setAdapter(adapter);
@@ -64,9 +63,15 @@ public class ScrollingActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener () {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                String elem = (String) listView.getItemAtPosition(position);
-                Toast t = Toast.makeText(getApplicationContext(), elem , Toast.LENGTH_SHORT);
-                t.show();
+                String link = (String) listView.getItemAtPosition(position);
+                Uri app = Uri.parse(link);
+                Intent intent = new Intent(Intent.ACTION_VIEW, app);
+                // Revisa si existen aplicaciones que puedan realizar esta accion
+                PackageManager packageManager = getPackageManager();
+                List<ResolveInfo> activities = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                if (activities.size() > 0 ) {
+                    startActivity(intent);
+                }
             }
         });
 
